@@ -7,6 +7,8 @@ export default function Post() {
   const { id } = useParams()
   const post = posts.find(post => post.id === Number(id))
 
+  if (!post) return <div>記事が見つかりませんでした</div>
+
   return (
     <div className='max-w-3xl mx-auto px-8 pt-10'>
       <div>
