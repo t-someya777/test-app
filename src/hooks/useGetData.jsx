@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react" 
   
   export default function useGetData(fetchUrl, page) {
-    const [posts, setPosts] = useState(null)
+    const [data, setData] = useState(null)
+    const [loading, setLoading] = useState(false)
     const url = fetchUrl
 
     useEffect(() => {
@@ -24,8 +25,14 @@ import { useState, useEffect } from "react"
           return null
         }
       }
-        fetchData().then(posts => setPosts(posts))
+        fetchData().then(posts => {
+          setData(posts) 
+          setLoading(true)
+        })
     }, [])
 
-    return posts
+    return {
+      data,
+      loading,
+    }
   }

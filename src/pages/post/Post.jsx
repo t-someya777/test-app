@@ -6,9 +6,13 @@ export default function Post() {
 
   const { id } = useParams()
   const url = `https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`
-  const post = useGetData(url, 'postPage' )
+  const {data:post, loading} = useGetData(url, 'postPage' )
 
-  if (!post) return <div>記事が見つかりませんでした</div>
+  if(!loading) {
+    return <div>記事読み込み中...</div>
+  } else if(post.length === 0) {
+    return <div>記事が見つかりません</div>
+  }
 
   return (
     <div className='max-w-3xl mx-auto px-8 pt-10'>
